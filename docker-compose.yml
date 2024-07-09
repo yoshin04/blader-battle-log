@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  # analysis:
+  #   build: ./analysis
+  #   depends_on:
+  #     - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: bbl_user
+      POSTGRES_PASSWORD: local
+      POSTGRES_DB: bbl_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
